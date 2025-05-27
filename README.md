@@ -1,75 +1,79 @@
-# Restaurační Systém
+# Restaurant Cash Register
 
-Jednoduchý webový restaurační systém vytvořený pomocí Reactu.
+A modern web application for managing restaurant orders, payments, and menu items.
 
-## Funkcionalita
+## Features
 
-*   Správa položek menu (přidání, úprava, smazání, kategorizace).
-*   Vytváření nových objednávek s výběrem stolu a přetahováním položek z menu.
-*   Sledování aktivních objednávek.
-*   Zpracování plateb za objednávky (hotovost/karta) a výpočet vrácené částky.
-*   Historie dokončených transakcí s filtry a statistikami.
-*   Simulace použití Geolocation API, Audio API a tisku účtenek.
+- Real-time order management
+- Table selection and management
+- Menu item management with custom categories
+- Payment processing
+- Order history with receipt generation
+- Responsive design
 
-## Technologie
+## Technologies Used
 
-*   React
-*   React Router v6
-*   SCSS/CSS
-*   HTML5 (sémantické tagy, ARIA atributy)
-*   JavaScript (OOP principy)
-*   `@hello-pangea/dnd` pro drag-and-drop
+- React
+- React Router
+- SCSS
+- Local Storage for data persistence
 
-## Instalace a spuštění
+## Getting Started
 
-1.  Naklonujte repozitář:
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm (v6 or higher)
+
+### Installation
+
+1. Clone the repository:
 
     ```bash
-    git clone <https://gitlab.fel.cvut.cz/dinhphuc/kaj_kasa.git>
+    git clone https://github.com/Haruxiu/kaj_pokladna.git
+    cd kaj_pokladna
     ```
 
-2.  Přejděte do adresáře projektu:
-
-    ```bash
-    cd restauaracni-system
-    ```
-
-3.  Nainstalujte závislosti:
+2. Install dependencies:
 
     ```bash
     npm install
-    # nebo
-    yarn install
     ```
 
-
-4.  Spusťte aplikaci v režimu pro vývoj:
+3. Start the development server:
 
     ```bash
     npm start
-    # nebo
-    yarn start
     ```
 
-    Aplikace by se měla otevřít ve vašem výchozím prohlížeči na adrese `http://localhost:3000` (nebo jiném dostupném portu).
+    The application will be available at `http://localhost:3000`.
 
-## Struktura projektu
+### Building for Production
 
+To create a production build:
+
+```bash
+npm run build
 ```
-restauracni-system/
-├── public/
-│   ├── index.html
-│   └── prepared.mp3  <-- zvukový soubor
-├── src/
-│   ├── components/     <-- React komponenty
-│   ├── hooks/          <-- Custom React hooky (např. useLocalStorage)
-│   ├── styles/         <-- SCSS styly
-│   ├── utils/          <-- Pomocné funkce (např. geolocation)
-│   ├── App.jsx         <-- Hlavní komponenta a správa stavu
-│   ├── index.js        <-- Vstupní bod aplikace
-│   └── ... další soubory
-├── .gitignore
-├── package.json
-├── README.md         
-└── ... další konfigurační soubory
-```
+
+## Deployment
+
+The application is deployed using GitHub Pages. To deploy:
+
+1. Build the project:
+
+    ```bash
+    npm run build
+    ```
+
+2. Deploy to GitHub Pages:
+
+    ```bash
+    npm run deploy
+    ```
+
+    The application will be available at `https://haruxiu.github.io/kaj_pokladna/`.
+
+## License
+
+This project is licensed under the MIT License.
