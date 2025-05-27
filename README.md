@@ -25,7 +25,7 @@ Jednoduchý webový restaurační systém vytvořený pomocí Reactu.
 1.  Naklonujte repozitář:
 
     ```bash
-    git clone <URL_VAŠEHO_REPOZITÁŘE>
+    git clone <https://gitlab.fel.cvut.cz/dinhphuc/kaj_kasa.git>
     ```
 
 2.  Přejděte do adresáře projektu:
@@ -42,9 +42,8 @@ Jednoduchý webový restaurační systém vytvořený pomocí Reactu.
     yarn install
     ```
 
-4.  Umístěte soubor `prepared.mp3` (nebo jiný zvukový soubor pro upozornění na připravenou objednávku) do složky `public/` v kořenovém adresáři projektu. Pokud použijete jiný název souboru, aktualizujte `src` atribut `<audio>` tagu v `src/components/OrderCard.jsx` na správnou cestu (např. `/váš_soubor.mp3`).
 
-5.  Spusťte aplikaci v režimu pro vývoj:
+4.  Spusťte aplikaci v režimu pro vývoj:
 
     ```bash
     npm start
@@ -60,7 +59,7 @@ Jednoduchý webový restaurační systém vytvořený pomocí Reactu.
 restauracni-system/
 ├── public/
 │   ├── index.html
-│   └── prepared.mp3  <-- Umístěte zde váš zvukový soubor
+│   └── prepared.mp3  <-- zvukový soubor
 ├── src/
 │   ├── components/     <-- React komponenty
 │   ├── hooks/          <-- Custom React hooky (např. useLocalStorage)
@@ -71,12 +70,6 @@ restauracni-system/
 │   └── ... další soubory
 ├── .gitignore
 ├── package.json
-├── README.md           <-- Tento soubor
+├── README.md         
 └── ... další konfigurační soubory
 ```
-
-## Dokumentace
-
-Kompletní dokumentace projektu, včetně cíle, postupu, popisu funkčnosti a komentářů ke kódu, je k dispozici v dokumentačním souboru (pokud byl vygenerován samostatně, nebo je vkomponován do komentářů v kódu).
-
---- 
