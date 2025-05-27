@@ -315,8 +315,9 @@ class MenuManagement extends React.Component {
 
         <section className="menu-management-container">
           <section className="menu-form-section">
+            <h3 className="section-title">Přidat/Upravit položku</h3>
             <div className="menu-form card" ref={this.formRef} role="form" aria-label={editingId ? 'Upravit položku menu' : 'Přidat novou položku do menu'}>
-              <h3>{editingId ? 'Upravit položku' : 'Přidat novou položku'}</h3>
+              <h4>{editingId ? 'Upravit položku' : 'Přidat novou položku'}</h4>
               <form onSubmit={this.handleSubmit}>
                 <div className="form-group">
                   <label htmlFor="itemName">Název:</label>
@@ -382,12 +383,15 @@ class MenuManagement extends React.Component {
           </section>
 
           <section className="menu-list-section">
+            <h3 className="section-title">Seznam položek menu</h3>
             <div className="menu-list card">
-              <h3 className="menu-list-title">Seznam položek menu
-                 <svg ref={this.svgRef} onClick={this.handleSvgClick} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={svgColor} stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style={{ marginLeft: '10px', cursor: 'pointer' }}>
-                    <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8m-3 4a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16m18-8v4h-4m-3 4h4v4"></path>
-                 </svg>
-               </h3>
+              <div className="menu-list-header">
+                <h4>Dostupné položky
+                   <svg ref={this.svgRef} onClick={this.handleSvgClick} width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={svgColor} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: '10px', cursor: 'pointer' }}>
+                        <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8m-3 4a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16m18-8v4h-4m-3 4h4v4"></path>
+                   </svg>
+                 </h4>
+              </div>
               <div className="category-filter" role="tablist" aria-label="Filtry kategorií">
                  {/* Render category filter buttons */}
                  {allCategories.map(category => (

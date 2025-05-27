@@ -237,7 +237,7 @@ class History extends React.Component {
                 <div className="transaction-header">
                   <h3>Transakce #{transaction.id.toString().slice(-4)}</h3>
                   <p>Datum: {new Date(transaction.paymentTimestamp).toLocaleString()}</p>
-                  {transaction.tableName && <p>Stůl: {transaction.tableName}</p>}
+                  {transaction.tableName && <p> {transaction.tableName}</p>}
                 </div>
 
                 <div className="transaction-details">

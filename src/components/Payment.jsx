@@ -162,7 +162,6 @@ class Payment extends React.Component {
           <div className="table-selection">
             <h3>Vyberte stůl k platbě</h3>
             <div className="table-list" role="radiogroup" aria-label="Výběr stolu k platbě">
-              {/* Tables are hardcoded here, should ideally come from props */}
               {[{ id: 1, name: 'Stůl 1' }, { id: 2, name: 'Stůl 2' }, { id: 3, name: 'Stůl 3' }, { id: 4, name: 'Stůl 4' }].map(table => (
                 <div
                   key={table.id}

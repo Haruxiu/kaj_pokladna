@@ -181,7 +181,7 @@ class App extends Component {
       receipt += '==================\n\n';
       receipt += `Transakce #${paidOrder.id.toString().slice(-4)}\n`;
       receipt += `Datum: ${new Date(paidOrder.paymentTimestamp).toLocaleString()}\n\n`;
-      receipt += `Stůl: ${paidOrder.tableName}\n`;
+      receipt += `${paidOrder.tableName}\n`;
       receipt += `Číslo objednávky: ${paidOrder.id}\n\n`;
       receipt += '------------------\n\n';
       receipt += 'Položky:\n\n';

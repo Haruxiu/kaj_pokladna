@@ -183,7 +183,7 @@ class NewOrder extends Component {
     const order = {
       id: Date.now(),
       tableId: selectedTable.id,
-      tableName: selectedTable.number,
+      tableName: selectedTable.name,
       items: currentOrder,
       total: this.calculateTotal(),
       status: 'pending',
@@ -306,7 +306,7 @@ class NewOrder extends Component {
             <div className="selected-table">
               {selectedTable ? (
                 <>
-                  <h3>Stůl: {selectedTable.number}</h3>
+                  <h3>{selectedTable.name}</h3>
                   <button className="change-table-btn" onClick={this.handleOpenTableModal}>Změnit stůl</button>
                 </>
               ) : (
@@ -351,7 +351,7 @@ class NewOrder extends Component {
                         className="table-item"
                         onClick={() => this.handleTableSelect(table)}
                       >
-                        {table.number}
+                        {table.name}
                       </div>
                     ))}
                   </div>
