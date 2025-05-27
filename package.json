@@ -2,7 +2,7 @@
   "name": "restaurant-cash-register",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://yourusername.github.io/restaurant-cash-register",
+  "homepage": "https://haruxiu.github.io/kaj_pokladna",
   "dependencies": {
     "@hello-pangea/dnd": "^18.0.1",
     "@testing-library/jest-dom": "^5.17.0",
