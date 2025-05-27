@@ -1,0 +1,311 @@
+import React, { useState, useMemo } from 'react';
+// import useLocalStorage from '../hooks/useLocalStorage'; // Remove useLocalStorage
+
+// Receive menuItems, setMenuItems, nextItemId, setNextItemId as props
+const MenuManagement = ({ menuItems, setMenuItems, nextItemId, setNextItemId }) => {
+  // menuItems, setMenuItems, nextItemId are now received as props
+  // const [menuItems, setMenuItems] = useLocalStorage('menuItems', [
+  //   { id: 1, name: 'Kuřecí řízek', price: 150, category: 'main' },
+  //   { id: 2, name: 'Hovězí guláš', price: 130, category: 'main' },
+  //   { id: 3, name: 'Pivo', price: 35, category: 'drink' },
+  //   { id: 4, name: 'Kola', price: 30, category: 'drink' },
+  //   { id: 5, name: 'Zmrzlina', price: 45, category: 'dessert' }
+  // ]);
+
+  const [formData, setFormData] = useState({
+    name: '',
+    price: '',
+    category: 'main' // Default category
+  });
+  const [editingId, setEditingId] = useState(null);
+  // nextId is now received as a prop
+  // const [nextId, setNextId] = useState(6);
+  const [deleteConfirmId, setDeleteConfirmId] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState('all');
+
+  // Get unique categories from menu items
+  const availableCategories = useMemo(() => {
+    const categories = new Set(menuItems.map(item => item.category));
+    // Define a preferred order for display, but include all found categories
+    const orderedCategories = ['main', 'drink', 'dessert'];
+    const allCategories = [...new Set([...orderedCategories, ...Array.from(categories)])];
+    return allCategories;
+  }, [menuItems]);
+
+
+  // Group menu items by category and sort by preferred order
+  const groupedMenuItems = useMemo(() => {
+    const grouped = menuItems.reduce((acc, item) => {
+      if (!acc[item.category]) {
+        acc[item.category] = [];
+      }
+      acc[item.category].push(item);
+      return acc;
+    }, {});
+
+    // Sort categories based on availableCategories order
+    return availableCategories
+      .filter(category => grouped[category]) // Only include categories with items
+      .map(category => ({
+        category,
+        items: grouped[category]
+      }));
+  }, [menuItems, availableCategories]); // Add availableCategories to dependencies
+
+  // Filter menu items based on selected category
+  const filteredMenuItems = useMemo(() => {
+    if (selectedCategory === 'all') {
+      return menuItems;
+    }
+    return menuItems.filter(item => item.category === selectedCategory);
+  }, [menuItems, selectedCategory]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: name === 'price' ? parseFloat(value) || '' : value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!formData.name || !formData.price) {
+      alert('Vyplňte všechny údaje!');
+      return;
+    }
+
+    if (editingId) {
+      // Update existing item
+      // Use setMenuItems prop
+      setMenuItems(menuItems.map(item =>
+        item.id === editingId ? { ...formData, id: editingId } : item
+      ));
+      setEditingId(null);
+    } else {
+      // Add new item
+      // Use setMenuItems and setNextItemId props
+      const newItem = { ...formData, id: nextItemId };
+      setMenuItems([...menuItems, newItem]);
+      setNextItemId(nextItemId + 1);
+    }
+
+    // Reset form
+    setFormData({ name: '', price: '', category: 'main' });
+  };
+
+  const editItem = (id) => {
+    const itemToEdit = menuItems.find(item => item.id === id);
+    if (itemToEdit) {
+      setFormData({
+        name: itemToEdit.name,
+        price: itemToEdit.price,
+        category: itemToEdit.category
+      });
+      setEditingId(id);
+    }
+  };
+
+  const requestDeleteItem = (id) => {
+    setDeleteConfirmId(id);
+  };
+
+  const confirmDelete = () => {
+    // Use setMenuItems prop
+    setMenuItems(menuItems.filter(item => item.id !== deleteConfirmId));
+    setDeleteConfirmId(null);
+  };
+
+  const cancelDelete = () => {
+    setDeleteConfirmId(null);
+  };
+
+  // Simple mapping for display names (can be expanded)
+  const getCategoryDisplayName = (category) => {
+    switch (category) {
+      case 'main': return 'Hlavní jídla';
+      case 'drink': return 'Nápoje';
+      case 'dessert': return 'Dezerty';
+      default: return category.charAt(0).toUpperCase() + category.slice(1); // Capitalize others
+    }
+  };
+
+
+  return (
+    <div className="menu-management">
+      <h2>Správa menu</h2>
+
+      {/* Add/Edit Form */}
+      <div className="menu-form card">
+        <h3>{editingId ? 'Upravit položku' : 'Přidat novou položku'}</h3>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label htmlFor="itemName">Název:</label>
+            <input
+              type="text"
+              id="itemName"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="itemPrice">Cena:</label>
+            <input
+              type="number"
+              id="itemPrice"
+              name="price"
+              value={formData.price}
+              onChange={handleInputChange}
+              required
+              step="0.01"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="itemCategory">Kategorie:</label>
+            <select
+              id="itemCategory"
+              name="category"
+              value={formData.category}
+              onChange={handleInputChange}
+              required
+            >
+              {/* Dynamically generate category options */}
+              {availableCategories.map(category => (
+                <option key={category} value={category}>
+                  {getCategoryDisplayName(category)}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="form-actions">
+            <button type="submit" className="btn btn-primary">
+              {editingId ? 'Uložit změny' : 'Přidat položku'}
+            </button>
+            {editingId && (
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={() => { setEditingId(null); setFormData({ name: '', price: '', category: 'main' }); }}
+              >
+                Zrušit
+              </button>
+            )}
+          </div>
+        </form>
+      </div>
+
+      {/* Menu Items List */}
+      <div className="menu-items-list">
+        <h3>Existující položky</h3>
+
+        {/* Category Filter */}
+        <div className="category-filter">
+          <button
+            className={`category-btn ${selectedCategory === 'all' ? 'active' : ''}`}
+            onClick={() => setSelectedCategory('all')}
+          >
+            Vše
+          </button>
+          {/* Dynamically generate category filter buttons */}
+          {availableCategories.map(category => (
+             <button
+               key={category}
+               className={`category-btn ${selectedCategory === category ? 'active' : ''}`}
+               onClick={() => setSelectedCategory(category)}
+             >
+               {getCategoryDisplayName(category)}
+             </button>
+          ))}
+        </div>
+
+        {selectedCategory === 'all' ? (
+          // Show grouped items when "all" is selected
+          <div className="grouped-items"> {/* Add a wrapper div for grouped items */}
+            {groupedMenuItems.map(({ category, items }) => (
+              <div key={category} className="menu-category">
+                <h4 className="category-title">
+                  {getCategoryDisplayName(category)}
+                </h4>
+                <div className="category-items">
+                  {items.map(item => (
+                    <div key={item.id} className="menu-item-card card">
+                      <div className="item-info">
+                        <h4>{item.name}</h4>
+                        <p>{item.price} Kč</p>
+                        <span className={`category-badge ${item.category}`}>
+                          {getCategoryDisplayName(item.category)}
+                        </span>
+                      </div>
+                      <div className="item-actions">
+                        <button
+                          className="btn btn-outline btn-sm"
+                          onClick={() => editItem(item.id)}
+                        >
+                          Upravit
+                        </button>
+                        <button
+                          className="btn btn-error btn-sm"
+                          onClick={() => requestDeleteItem(item.id)}
+                        >
+                          Smazat
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : (
+          // Show filtered items when a specific category is selected
+          <div className="items-grid">
+            {filteredMenuItems.map(item => (
+              <div key={item.id} className="menu-item-card card">
+                <div className="item-info">
+                  <h4>{item.name}</h4>
+                  <p>{item.price} Kč</p>
+                  <span className={`category-badge ${item.category}`}>
+                    {getCategoryDisplayName(item.category)}
+                  </span>
+                </div>
+                <div className="item-actions">
+                  <button
+                    className="btn btn-outline btn-sm"
+                    onClick={() => editItem(item.id)}
+                  >
+                    Upravit
+                  </button>
+                  <button
+                    className="btn btn-error btn-sm"
+                    onClick={() => requestDeleteItem(item.id)}
+                  >
+                    Smazat
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Confirmation Dialog */}
+      {deleteConfirmId !== null && (
+        <div className="confirmation-dialog">
+          <p>Opravdu chcete smazat tuto položku?</p>
+          <div className="confirmation-actions">
+            <button className="btn btn-error confirm-btn" onClick={confirmDelete}>Smazat</button>
+            <button className="btn btn-secondary cancel-btn" onClick={cancelDelete}>Zrušit</button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default MenuManagement; 
