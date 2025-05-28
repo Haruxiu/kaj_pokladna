@@ -25,16 +25,20 @@ jobs:
 
       - name: Install Dependencies
         run: |
+          rm -rf node_modules
+          rm -f package-lock.json
+          npm cache clean --force
           npm install
-          npm install -g react-scripts
-          npm install sass --save-dev
-          npm install @hello-pangea/dnd --save
-          npm install chart.js --save
-          npm install react-chartjs-2 --save
-          npm install react-router-dom --save
+          npm install sass@latest --save-dev
+          npm install @hello-pangea/dnd@latest --save
+          npm install chart.js@latest --save
+          npm install react-chartjs-2@latest --save
+          npm install react-router-dom@latest --save
 
       - name: Build
-        run: npm run build
+        run: |
+          export PATH=$PATH:$(npm bin)
+          npm run build
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@v4
