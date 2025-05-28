@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import useLocalStorage from './hooks/useLocalStorage';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import Orders from './components/Orders';
 import NewOrder from './components/NewOrder';

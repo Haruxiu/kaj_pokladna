@@ -38,6 +38,7 @@ jobs:
       - name: Build
         run: |
           export PATH=$PATH:$(npm bin)
+          export CI=false
           npm run build
 
       - name: Deploy
