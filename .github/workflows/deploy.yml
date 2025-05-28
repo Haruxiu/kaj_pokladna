@@ -27,6 +27,11 @@ jobs:
         run: |
           npm install
           npm install -g react-scripts
+          npm install sass --save-dev
+          npm install @hello-pangea/dnd --save
+          npm install chart.js --save
+          npm install react-chartjs-2 --save
+          npm install react-router-dom --save
 
       - name: Build
         run: npm run build
