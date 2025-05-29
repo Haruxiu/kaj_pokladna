@@ -1,11 +1,9 @@
 {
   "name": "kaj",
+  "homepage": "https://haruxiu.github.io/kaj_pokladna/",
   "version": "0.1.0",
-  "private": true,
   "type": "module",
-  "engines": {
-    "node": ">=20.0.0"
-  },
+  
   "dependencies": {
     "@hello-pangea/dnd": "^18.0.1",
     "@testing-library/jest-dom": "^5.17.0",
@@ -25,7 +23,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "deploy": "vercel --prod --yes",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "preview": "vite preview",
     "test": "vitest"
   },
