@@ -1,0 +1,9 @@
+{
+    "build": {
+      "env": {},
+      "installCommand": "npm ci",
+      "buildCommand": "npm run build",
+      "outputDirectory": "build"
+    }
+  }
+  
