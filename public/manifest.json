@@ -1,9 +1,9 @@
 {
     "name": "Restaurant Cash Register",
-    "short_name": "RestaurantCash",
+    "short_name": "Restaurant POS",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#4a6fa5",
+    "background_color": "#ffffff",
     "theme_color": "#4a6fa5",
     "description": "A cash register system for restaurants with offline support",
     "icons": [
