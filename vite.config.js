@@ -20,7 +20,13 @@ export default defineConfig({
     },
   },
   css: {
-    postcss: './postcss.config.cjs'
+    postcss: {
+      plugins: [
+        require('postcss-import'),
+        require('postcss-nested'),
+        require('autoprefixer')
+      ]
+    }
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-router-dom', 'prop-types']
