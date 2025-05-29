@@ -2,6 +2,7 @@
   "name": "kaj",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@hello-pangea/dnd": "^18.0.1",
     "@testing-library/jest-dom": "^5.17.0",
@@ -40,6 +41,8 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.4",
     "vite": "^5.1.4",
     "vitest": "^1.3.1"
   }
