@@ -1,7 +1,11 @@
-module.exports = {
+import postcssImport from 'postcss-import';
+import postcssNested from 'postcss-nested';
+import autoprefixer from 'autoprefixer';
+
+export default {
   plugins: [
-    require('postcss-import'),
-    require('postcss-nested'),
-    require('autoprefixer')
+    postcssImport(),
+    postcssNested(),
+    autoprefixer()
   ]
-} 
+};
