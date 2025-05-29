@@ -1,8 +1,5 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import postcssImport from 'postcss-import'
-import postcssNested from 'postcss-nested'
-import autoprefixer from 'autoprefixer'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -21,15 +18,6 @@ export default defineConfig({
         },
       },
     },
-  },
-  css: {
-    postcss: {
-      plugins: [
-        postcssImport,
-        postcssNested,
-        autoprefixer
-      ]
-    }
   },
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-router-dom', 'prop-types']
