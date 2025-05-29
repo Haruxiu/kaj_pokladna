@@ -1,8 +1,0 @@
-{
-    "build": {
-      "env": {},
-      "buildCommand": "npm run build",
-      "outputDirectory": "build"
-    }
-  }
-  
