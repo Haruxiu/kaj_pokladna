@@ -3,7 +3,6 @@
   "homepage": "https://haruxiu.github.io/kaj_pokladna/",
   "version": "0.1.0",
   "type": "module",
-  
   "dependencies": {
     "@hello-pangea/dnd": "^18.0.1",
     "@testing-library/jest-dom": "^5.17.0",
@@ -23,10 +22,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist",
-    "preview": "vite preview",
-    "test": "vitest"
+    "deploy": "vercel --prod --yes",
+    "preview": "vite preview"
   },
   "eslintConfig": {
     "extends": [
@@ -48,6 +45,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
+    "rimraf": "^6.0.1",
     "vercel": "^42.2.0",
     "vite": "^5.1.4",
     "vitest": "^1.3.1"
