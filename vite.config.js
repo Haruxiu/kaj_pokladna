@@ -19,6 +19,9 @@ export default defineConfig({
       },
     },
   },
+  css: {
+    postcss: './postcss.config.cjs'
+  },
   optimizeDeps: {
     include: ['react', 'react-dom', 'react-router-dom', 'prop-types']
   }
