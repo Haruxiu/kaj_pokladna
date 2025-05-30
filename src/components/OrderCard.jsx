@@ -68,7 +68,7 @@ class OrderCard extends React.Component {
     const statusInfo = this.getStatusInfo(order.status);
     const total = order.items.reduce((sum, item) => sum + item.price, 0);
 
-    const audioSrc = 'kaj_pokladna/sounds/prepared.mp3';
+    const audioSrc = '/kaj_pokladna/sounds/prepared.mp3';
 
   
     return (
