@@ -6,6 +6,7 @@ import NewOrder from './components/NewOrder';
 import History from './components/History';
 import MenuManagement from './components/MenuManagement';
 import Payment from './components/Payment';
+import { useOrientation } from './hooks/useOrientation';
 import './styles/main.scss';
 
 // Main App component managing global state and routing.
@@ -45,6 +46,10 @@ class App extends Component {
     this.setNextItemId = this.setNextItemId.bind(this);
     this.setCustomCategories = this.setCustomCategories.bind(this);
   }
+
+  // componentDidMount() {
+  //   useOrientation();
+  // }
 
   /**
    * Lifecycle method called after component updates (state or props changes).

@@ -1927,3 +1927,86 @@
     padding: var(--spacing-sm) var(--spacing-lg);
   }
 }
+
+// Orders grid adjustments
+.orders-grid {
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    
+    @media (orientation: landscape) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+// Order card adjustments
+.order-card {
+  @media (max-width: 480px) {
+    padding: var(--spacing-md);
+    
+    &.compact {
+      padding: var(--spacing-sm);
+    }
+    
+    // Handle landscape orientation
+    @media (orientation: landscape) {
+      padding: var(--spacing-sm);
+    }
+  }
+}
+
+// Modal adjustments
+.modal-content {
+  @media (max-width: 768px) {
+    width: 95%;
+    max-width: none;
+    padding: var(--spacing-md);
+    
+    @media (orientation: landscape) {
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+  }
+}
+
+// Menu management adjustments
+.menu-management {
+  @media (max-width: 768px) {
+    padding: var(--spacing-md);
+    
+    .menu-management-container {
+      grid-template-columns: 1fr;
+      gap: var(--spacing-md);
+    }
+    
+    @media (orientation: landscape) {
+      .menu-items {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+}
+
+// Payment methods grid
+.payment-methods {
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    
+    @media (orientation: landscape) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+}
+
+// Table selection adjustments
+.table-selection {
+  @media (max-width: 768px) {
+    .table-list {
+      grid-template-columns: repeat(3, 1fr);
+      
+      @media (orientation: landscape) {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+  }
+}

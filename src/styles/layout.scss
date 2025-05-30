@@ -182,3 +182,69 @@
     box-shadow: none;
   }
 } 
+
+
+// Sidebar adjustments
+.sidebar {
+  @media (max-width: 1024px) {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100vh;
+    z-index: var(--z-index-modal);
+    transition: transform var(--transition-normal) var(--transition-timing);
+    
+    &.active {
+      transform: translateX(100%);
+    }
+  }
+}
+
+// Dashboard grid adjustments
+.dashboard {
+  @media (max-width: 1200px) {
+    &-stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    &-stats {
+      grid-template-columns: 1fr;
+    }
+    
+    // Handle landscape orientation
+    @media (orientation: landscape) {
+      &-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-sm);
+      }
+    }
+  }
+}
+
+// Grid layout adjustments
+.grid-layout {
+  @media (max-width: 768px) {
+    &-2, &-3, &-4 {
+      grid-template-columns: 1fr;
+      
+      // Handle landscape orientation
+      @media (orientation: landscape) {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+}
+
+// Special handling for small screens in landscape
+@media (max-width: 640px) and (orientation: landscape) {
+  .content-area {
+    padding: var(--spacing-sm);
+  }
+  
+  .card {
+    padding: var(--spacing-sm);
+  }
+}
