@@ -42,7 +42,9 @@ class OrderCard extends React.Component {
     this.setState({ previousStatus: order.status, showStatusChange: true });
     updateStatus(order.id, newStatus);
     if (newStatus === 'ready' && this.state.audioRef.current) {
-      this.state.audioRef.current.play();
+      this.state.audioRef.current
+        .play()
+        .catch(err => console.warn('Audio playback failed:', err));
     }
   }
 
@@ -66,9 +68,17 @@ class OrderCard extends React.Component {
     const statusInfo = this.getStatusInfo(order.status);
     const total = order.items.reduce((sum, item) => sum + item.price, 0);
 
+    const audioSrc = 'kaj_pokladna/sounds/prepared.mp3';
+
+  
     return (
       <div className={`order-card ${compact ? 'compact' : ''}`} role="article">
-        <audio ref={this.state.audioRef} src="/prepared.mp3" preload="auto"></audio>
+
+        <audio ref={this.state.audioRef} preload="auto">
+          <source src= {audioSrc} type="audio/mpeg" />
+          Your browser does not support the audio element.
+        </audio>
+        
         <div className="order-header">
           <div>
             <h3>Objednávka #{order.id.toString().slice(-4)}</h3>
