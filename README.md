@@ -13,7 +13,7 @@ Jednoduchý webový restaurační systém vytvořený pomocí Reactu.
 
 ## Technologie
 
-*   React
+*   React, Vite
 *   React Router v6
 *   SCSS/CSS
 *   HTML5 (sémantické tagy, ARIA atributy)
@@ -52,6 +52,22 @@ Jednoduchý webový restaurační systém vytvořený pomocí Reactu.
     ```
 
     Aplikace by se měla otevřít ve vašem výchozím prohlížeči na adrese `http://localhost:3000` (nebo jiném dostupném portu).
+
+## Použití
+1. V navigaci vyberte Nová objednávka a vyberte stůl a vytvořte novou objednávku přetáhnutím položek. (pozn. nejdříve je nutné vybrat stůl, jinak nelze odeslat objednávku)
+
+2. Po dokončení objednávky se přesměruje stránka na Objednávky - mainpage.
+Zde můžete označit objednávku jako připravenou a přejít k platbě. (při každém dokončení zahraje zvonek)
+ Po přechodu na Platbu je třeba nejprve vybrat stůl -> zobrazí se objednávky spjaté ke stolu. Vyberete objednávky k platbě, způsob platby, příp. obdrženou částku a dokončit platbu. (možnost tisku)
+
+3. Na stránce Historie můžete vidět statistiky všech plateb. (možnosti filtrování historie)
+(je tu i tlačítko zobrazit moji polohu, ale je jen neformální)
+
+4. V Menu si můžete vytvořit novou Kategorii -> Spravovat kategorie - Nová kategorie -> Přidat -> Uložit. Obdobně je i možnost s položkami. V případě špatné synchronizace, tu je tlačítko synchronizace vedle “Dostupné položky”.
+(kategorie lze mazat a upravovat kromě základních - Hl. jídlo, nápoj a Dezert)
+
+5. V navigace je možné i vytisknout poslední účtenku
+
 
 ## Struktura projektu
 
