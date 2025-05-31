@@ -182,20 +182,30 @@ class MenuManagement extends React.Component {
    * Handles adding a new custom category.
    * Adds the new category to the customCategories state if it's not empty and doesn't already exist.
    */
+  
   handleAddCategory() {
-    const { newCategoryName } = this.state;
-    const { customCategories, setCustomCategories } = this.props;
+    const { newCategoryName, editingCategories } = this.state;
+    
     if (newCategoryName.trim()) {
-      if (customCategories.includes(newCategoryName.trim())) {
+      const categoryExists = editingCategories.some(
+        cat => cat.toLowerCase() === newCategoryName.trim().toLowerCase()
+      );
+      
+      if (categoryExists) {
         alert('Tato kategorie již existuje!');
         return;
       }
-      const updatedCategories = [...customCategories, newCategoryName.trim()];
-      setCustomCategories(updatedCategories);
-      this.setState({ newCategoryName: '' });
+      
+      this.setState({ 
+        editingCategories: [...editingCategories, newCategoryName.trim()],
+        newCategoryName: '',
+        formData: {
+          ...this.state.formData,
+          category: newCategoryName.trim()
+        }
+      });
     }
   }
-
   /**
    * Opens the category management modal and initializes the editingCategories state.
    */
@@ -244,22 +254,28 @@ class MenuManagement extends React.Component {
   handleSaveCategories() {
     const { editingCategories } = this.state;
     const { menuItems, setMenuItems, setCustomCategories } = this.props;
-
+  
+    // Check for duplicates
     const uniqueCategories = new Set(editingCategories);
     if (uniqueCategories.size !== editingCategories.length) {
       alert('Kategorie nemohou mít stejný název!');
       return;
     }
-
+  
+    // Update menu items with potentially renamed categories
     const updatedMenuItems = menuItems.map(item => {
       const oldCategory = item.category;
       const newCategory = editingCategories.find(cat => cat === oldCategory);
       return newCategory ? { ...item, category: newCategory } : item;
     });
     setMenuItems(updatedMenuItems);
-
+  
+    // Save all categories (including newly added ones)
     setCustomCategories(editingCategories);
-    this.setState({ showCategoryModal: false });
+    this.setState({ 
+      showCategoryModal: false,
+      newCategoryName: '' 
+    });
   }
 
   /**
