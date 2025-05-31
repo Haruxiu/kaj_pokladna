@@ -13,7 +13,7 @@ Jednoduchý webový restaurační systém vytvořený pomocí Reactu.
 
 ## Technologie
 
-*   React
+*   React, Vite
 *   React Router v6
 *   SCSS/CSS
 *   HTML5 (sémantické tagy, ARIA atributy)
