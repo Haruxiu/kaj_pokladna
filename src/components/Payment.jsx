@@ -69,15 +69,15 @@ class Payment extends React.Component {
     const { orders, setOrders, setHistory, showReceipt } = this.props;
     const { selectedOrders, paymentMethod, amountReceived } = this.state;
     const total = this.calculateTotal();
-
+  
     if (paymentMethod === 'cash' && parseFloat(amountReceived) < total) {
       alert('Obdržená částka je menší než celková cena!');
       return;
     }
-
+  
     const paidOrders = orders.filter(order => selectedOrders.includes(order.id));
     const remainingOrders = orders.filter(order => !selectedOrders.includes(order.id));
-
+  
     const now = new Date();
     const newHistoryEntries = paidOrders.map(order => ({
       ...order,
@@ -85,14 +85,23 @@ class Payment extends React.Component {
       paymentMethod,
       paymentTimestamp: now.toISOString()
     }));
-
+  
     setOrders(remainingOrders);
-    setHistory(prevHistory => [...prevHistory, ...newHistoryEntries]);
+    setHistory(prevHistory => {
+      const updatedHistory = [...prevHistory, ...newHistoryEntries];
+      
 
+      
+      return updatedHistory;
+    });
+  
+    setTimeout(() => {
+      newHistoryEntries.forEach(order => {
+        showReceipt(order.id);
+      });
+    }, 0);
+    
     this.setState({ selectedOrders: [], amountReceived: '', change: 0, selectedTable: null });
-
-    const receiptContent = this.generateReceipt(paidOrders, paymentMethod, total);
-    showReceipt(receiptContent);
   }
 
   /**

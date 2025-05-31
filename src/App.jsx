@@ -176,7 +176,7 @@ class App extends Component {
       alert('Účtenka nebyla nalezena.');
       return;
     }
-
+  
     // Helper function to format the receipt content as a string.
     const generateReceipt = (paidOrder) => {
       let receipt = '\n';
@@ -201,16 +201,19 @@ class App extends Component {
       receipt += '=== Harukoid s.r.o. ===\n';
       return receipt;
     };
-
-    // Open a new window to simulate printing.
-    const printWindow = window.open('', '_blank');
-    if (!printWindow) {
-      alert('Pop-up blokován. Povolte prosím vyskakovací okna pro tisk účtenky.');
-      return;
-    }
-
+  
+    // Create a hidden iframe for printing
+    const iframe = document.createElement('iframe');
+    iframe.style.position = 'absolute';
+    iframe.style.left = '-9999px';
+    iframe.style.top = '0';
+    iframe.style.width = '5.5in';
+    iframe.style.height = '8.5in';
+    iframe.style.border = 'none';
+    
+    document.body.appendChild(iframe);
+  
     const receiptContent = generateReceipt(order);
-    // Construct basic HTML content for the receipt window.
     const htmlContent = `
       <!DOCTYPE html>
       <html>
@@ -218,12 +221,12 @@ class App extends Component {
           <title>Účtenka #${order.id.toString().slice(-4)}</title>
           <style>
             @page {
-              size: 5.5in 8.5in; /* Typical receipt size */
+              size: 5.5in 8.5in;
               margin: 0;
             }
             body {
-              font-family: monospace; /* Monospace font for receipt look */
-              white-space: pre; /* Preserve line breaks and spaces */
+              font-family: monospace;
+              white-space: pre;
               padding: 40px;
               font-size: 14px;
               line-height: 1.6;
@@ -232,15 +235,6 @@ class App extends Component {
               margin: 0;
               text-align: center;
             }
-            @media print {
-              body {
-                padding: 40px;
-                margin: 0;
-                width: 5.5in;
-                min-height: 8.5in;
-                text-align: center;
-              }
-            }
           </style>
         </head>
         <body>
@@ -248,20 +242,23 @@ class App extends Component {
         </body>
       </html>
     `;
-
-    // Write content to the new window and close the document stream.
-    printWindow.document.write(htmlContent);
-    printWindow.document.close();
-
-    // Once the content is loaded, trigger the print dialog and close the window after printing.
-    printWindow.onload = function() {
-      printWindow.print();
-      printWindow.onafterprint = function() {
-        printWindow.close();
-      };
+  
+    iframe.contentDocument.open();
+    iframe.contentDocument.write(htmlContent);
+    iframe.contentDocument.close();
+  
+    // Wait for content to load before printing
+    iframe.onload = function() {
+      setTimeout(() => {
+        iframe.contentWindow.print();
+        // Remove the iframe after printing
+        setTimeout(() => {
+          document.body.removeChild(iframe);
+        }, 1000);
+      }, 500);
     };
   }
-
+  
   render() {
     // Destructure state variables for easier access in render method.
     const { orders, history, menuItems, nextItemId, customCategories, tables } = this.state;
